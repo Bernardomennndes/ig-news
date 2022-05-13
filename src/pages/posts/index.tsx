@@ -19,6 +19,11 @@ interface PostsProps {
     posts: Post[];
 }
 
+interface Results {
+    content: any;
+    title: string;
+}
+
 export default function Posts({ posts }: PostsProps) {
     return (
         <>
@@ -48,7 +53,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const prismic = getPrismicClient();
 
-    const response = await prismic.query([
+    const response = await prismic.query<Results>([
         Prismic.predicates.at('document.type', 'post')
     ],
         {
